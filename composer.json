@@ -1,9 +1,8 @@
 {
-  "name": "morphp/medas-placeholder",
-  "description": "Medas placeholder",
-  "version": "2.0.0",
+  "name": "morphp/medas-entity-generator3",
+  "description": "Medas entity generator",
   "keywords": [
-    "placeholder"
+    "entities"
   ],
   "authors": [
     {
@@ -13,7 +12,9 @@
   ],
   "type": "library",
   "require": {
+    "morphp/medas-console": "^3",
     "morphp/medas-core": "^3",
+    "morphp/medas-file-system": "^3",
     "php": "^8.4"
   },
   "require-dev": {
@@ -23,12 +24,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Medas\\Placeholder\\": "src/"
+      "Medas\\EntityGenerator\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Medas\\PlaceholderTest\\": "tests/"
+      "Medas\\EntityGeneratorTest\\": "tests/"
     }
   }
 }
