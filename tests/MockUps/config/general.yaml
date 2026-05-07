@@ -1,0 +1,5 @@
+env: dev
+
+entity-generator:
+  root-namespace: Medas\EntityGeneratorTest
+  entity-directories: [tests/MockUps]

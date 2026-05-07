@@ -6,7 +6,7 @@ namespace Medas\EntityGenerator\ConsoleCommands;
 
 use Medas\Console\Commands\{BaseConsoleCommand, CommandInput, ConsoleCommandGroup, Option, Range};
 use Medas\Core\Attributes\Service;
-use Medas\EntityGenerator\{EntityClassGenerator, FileNameFinder};
+use Medas\EntityGenerator\{EntityClassGenerator, FileNameFinder, FileWriter};
 
 #[Service]
 readonly class CreateEntityFile extends BaseConsoleCommand
@@ -15,6 +15,7 @@ readonly class CreateEntityFile extends BaseConsoleCommand
         private EntityClassGenerator    $entityClassGenerator,
         private EntityGeneratorCommands $group,
         private FileNameFinder          $fileNameFinder,
+        private FileWriter              $fileWriter,
     )
     {
     }
@@ -55,6 +56,6 @@ readonly class CreateEntityFile extends BaseConsoleCommand
         $code = $this->entityClassGenerator->generate($className, !$input->hasOption('auto-id'));
         $fileName = $this->fileNameFinder->find($className);
 
-        $this->fileNameFinder->writeToFile($code, $fileName);
+        $this->fileWriter->writeToFile($code, $fileName);
     }
 }

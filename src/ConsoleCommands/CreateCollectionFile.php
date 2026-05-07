@@ -6,7 +6,7 @@ namespace Medas\EntityGenerator\ConsoleCommands;
 
 use Medas\Console\Commands\{BaseConsoleCommand, CommandInput, ConsoleCommandGroup, Range};
 use Medas\Core\Attributes\Service;
-use Medas\EntityGenerator\{CollectionClassGenerator, FileNameFinder};
+use Medas\EntityGenerator\{CollectionClassGenerator, FileNameFinder, FileWriter};
 
 #[Service]
 readonly class CreateCollectionFile extends BaseConsoleCommand
@@ -15,6 +15,7 @@ readonly class CreateCollectionFile extends BaseConsoleCommand
         private CollectionClassGenerator $collectionClassGenerator,
         private EntityGeneratorCommands  $group,
         private FileNameFinder           $fileNameFinder,
+        private FileWriter               $fileWriter,
     )
     {
     }
@@ -50,6 +51,6 @@ readonly class CreateCollectionFile extends BaseConsoleCommand
         $code = $this->collectionClassGenerator->generate($className);
         $fileName = $this->fileNameFinder->find($className . 'Collection');
 
-        $this->fileNameFinder->writeToFile($code, $fileName);
+        $this->fileWriter->writeToFile($code, $fileName);
     }
 }

@@ -2,20 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Medas\EntityGenerator;
+namespace Medas\EntityGeneratorTest\MockUps;
 
 use Medas\Core\{AsSingleton, BasePackage};
-use Medas\FileSystem\FileSystemPackage;
 
-class EntityGeneratorPackage extends BasePackage
+class MockUpPackage extends BasePackage
 {
     use AsSingleton;
 
     public function dependencies(): array
     {
-        return [
-            FileSystemPackage::instance(),
-        ];
+        return [];
     }
 
     public function sourceDirectory(): string
