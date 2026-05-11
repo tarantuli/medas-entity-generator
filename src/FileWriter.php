@@ -23,17 +23,13 @@ readonly class FileWriter
         $this->directoryCreator->create(dirname($fileName));
 
         if (file_exists($fileName)) {
-            if ($this->printer) {
-                $this->printer->printLine(new Text('file ' . $fileName . ' already exists', Color::Gray));
-            }
+            $this->printer?->printLine(new Text('file ' . $fileName . ' already exists', Color::Gray));
         }
         elseif (file_put_contents($fileName, $code)) {
-            if ($this->printer) {
-                $this->printer->printLine(
-                    new Text('created entity file '),
-                    new Text($fileName, Color::LightYellow)
-                );
-            }
+            $this->printer?->printLine(
+                new Text('created entity file '),
+                new Text($fileName, Color::LightYellow)
+            );
         }
         elseif ($this->printer) {
             $this->printer->printLine(new Text('could not creat entity file ' . $fileName, Color::Red));
