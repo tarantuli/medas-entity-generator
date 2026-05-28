@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Medas\EntityGenerator;
 
-use Medas\Console\{Formats\Color, Printer, Text};
+use Medas\Console\{Formats\SafeColor, Printer, Text};
 use Medas\Core\Attributes\Service;
 use Medas\FileSystem\DirectoryCreator;
 
@@ -23,16 +23,16 @@ readonly class FileWriter
         $this->directoryCreator->create(dirname($fileName));
 
         if (file_exists($fileName)) {
-            $this->printer?->printLine(new Text('file ' . $fileName . ' already exists', Color::Gray));
+            $this->printer?->printLine(new Text('file ' . $fileName . ' already exists', SafeColor::Gray));
         }
         elseif (file_put_contents($fileName, $code)) {
             $this->printer?->printLine(
                 new Text('created entity file '),
-                new Text($fileName, Color::LightYellow)
+                new Text($fileName, SafeColor::LightYellow)
             );
         }
         elseif ($this->printer) {
-            $this->printer->printLine(new Text('could not creat entity file ' . $fileName, Color::Red));
+            $this->printer->printLine(new Text('could not creat entity file ' . $fileName, SafeColor::Red));
         }
     }
 }
