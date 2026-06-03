@@ -145,29 +145,29 @@ $fileWriter->writeToFile($code, $path);
 
 ```bash
 # Full namespace with backslashes
-php bin/console entity-generator:create-entity-file "MyApp\Entities\Invoice"
+php bin/medas entity-generator:create-entity-file "MyApp\Entities\Invoice"
 
 # Using forward slashes (equivalent)
-php bin/console entity-generator:create-entity-file MyApp/Entities/Invoice
+php bin/medas entity-generator:create-entity-file MyApp/Entities/Invoice
 
 # With a configured root namespace (entity-generator.root-namespace = MyApp\Entities)
-php bin/console entity-generator:create-entity-file .Invoice
+php bin/medas entity-generator:create-entity-file ./Invoice
 
 # With an auto-increment integer id instead of UUID
-php bin/console entity-generator:create-entity-file MyApp/Entities/Invoice --auto-id
+php bin/medas entity-generator:create-entity-file MyApp/Entities/Invoice --auto-id
 
 # Short alias
-php bin/console c.entity MyApp/Entities/Invoice
+php bin/medas c.entity MyApp/Entities/Invoice
 ```
 
 **Creating a collection file:**
 
 ```bash
-php bin/console entity-generator:create-collection-file MyApp/Entities/Invoice
+php bin/medas entity-generator:create-collection-file MyApp/Entities/Invoice
 # Writes InvoiceCollection to the path resolved for MyApp\Entities\InvoiceCollection
 
 # Short alias
-php bin/console c.collection MyApp/Entities/Invoice
+php bin/medas c.collection MyApp/Entities/Invoice
 ```
 
 **Configuring the root namespace** — set this once in your project's YAML config so you can use the dot shorthand:
