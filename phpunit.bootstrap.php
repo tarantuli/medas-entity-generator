@@ -8,12 +8,12 @@ use Medas\Core\Interfaces\ConfigManager;
 use Medas\EntityGenerator\EntityGeneratorPackage;
 use Medas\EntityGeneratorTest\MockUps\MockUpPackage;
 use Medas\ObjectInstantiator\ObjectInstantiator;
-use Medas\ServiceManager\{ServiceConfig, ServiceManager, ServiceManagerPackage};
+use Medas\ServiceManager\{ServiceConfigBuilder, ServiceManager, ServiceManagerPackage};
 
 chdir(__DIR__);
 
-new ServiceManager(function (): ServiceConfig {
-    $config = new ServiceConfig(ObjectInstantiator::class);
+new ServiceManager(function (): ServiceConfigBuilder {
+    $config = new ServiceConfigBuilder(ObjectInstantiator::class);
 
     $config->addPackages([
         ConfigManagerPackage::instance(),
