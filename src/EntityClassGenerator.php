@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Medas\EntityGenerator;
 
-use Medas\Core\Attributes\Service;
+use Medas\Core\Attributes\{PreferredDefault, Service};
 
 #[Service]
 readonly class EntityClassGenerator
@@ -67,6 +67,8 @@ PHP;
 
     public function __construct(
         private ClassNameNormalizer          $classNameNormalizer,
+
+        #[PreferredDefault(NameConverters\SnakeCaseNames::class)]
         private NameConverters\NameConverter $storeNameConverter,
     )
     {
