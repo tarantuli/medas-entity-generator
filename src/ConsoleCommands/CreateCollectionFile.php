@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Medas\EntityGenerator\ConsoleCommands;
 
-use Medas\Console\Commands\{BaseConsoleCommand, CommandInput, ConsoleCommandGroup, Range};
+use Medas\Console\Commands\{Argument, BaseConsoleCommand, CommandInput, ConsoleCommandGroup};
 use Medas\Core\Attributes\Service;
 use Medas\EntityGenerator\{CollectionClassGenerator, FileNameFinder, FileWriter};
 
@@ -40,14 +40,16 @@ readonly class CreateCollectionFile extends BaseConsoleCommand
         return 'Creates an entity collection file for the given fully qualified class name';
     }
 
-    public function allowedArgumentCount(): Range
+    public function arguments(): array
     {
-        return new Range(1);
+        return [
+            Argument::required('className'),
+        ];
     }
 
     public function process(CommandInput $input): void
     {
-        $className = $input->getArgument(1);
+        $className = $input->getArgument('className');
         $code = $this->collectionClassGenerator->generate($className);
         $fileName = $this->fileNameFinder->find($className . 'Collection');
 
