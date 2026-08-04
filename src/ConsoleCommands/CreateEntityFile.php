@@ -48,7 +48,10 @@ readonly class CreateEntityFile extends BaseConsoleCommand
 
     public function options(): array
     {
-        return [new Option('auto-id')];
+        return [
+            new Option('auto-id'),
+            new Option('soft-deletes', 's'),
+        ];
     }
 
     public function arguments(): array
@@ -61,7 +64,13 @@ readonly class CreateEntityFile extends BaseConsoleCommand
     public function process(CommandInput $input): void
     {
         $className = $input->getArgument('className');
-        $code = $this->entityClassGenerator->generate($className, !$input->hasOption('auto-id'));
+
+        $code = $this->entityClassGenerator->generate(
+            $className,
+            !$input->hasOption('auto-id'),
+            $input->hasOption('soft-deletes')
+        );
+
         $fileName = $this->fileNameFinder->find($className);
 
         $this->fileWriter->writeToFile($code, $fileName);

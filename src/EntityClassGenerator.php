@@ -74,7 +74,7 @@ PHP;
     {
     }
 
-    public function generate(string $className, bool $useUuid = true): string
+    public function generate(string $className, bool $useUuid = true, bool $useSoftDeletes = false): string
     {
         $className = $this->classNameNormalizer->normalize($className);
         [$namespace, $shortClassName] = $this->splitClassName($className);
@@ -86,11 +86,29 @@ PHP;
             '{{storeName}}' => $storeName,
         ];
 
-        return str_replace(
+        $code = str_replace(
             array_keys($replacements),
             array_values($replacements),
             $useUuid ? self::PHP_UUID_TEMPLATE : self::PHP_INT_TEMPLATE
         );
+
+        if ($useSoftDeletes) {
+            $code = str_replace(
+                [
+                    'use Medas\EntityManager\Attributes\{Entity, Id};',
+                    'implements HasId',
+                    'use Timestamps;',
+                ],
+                [
+                    'use Medas\EntityManager\{Attributes\Entity, Attributes\Id, Interfaces\HasSoftDeletes};',
+                    'implements HasId, HasSoftDeletes',
+                    "use Timestamps;\n    use SoftDeletes;",
+                ],
+                $code,
+            );
+        }
+
+        return $code;
     }
 
     private function splitClassName(string $className): array
