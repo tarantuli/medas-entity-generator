@@ -100,7 +100,7 @@ PHP;
                     'use Timestamps;',
                 ],
                 [
-                    'use Medas\EntityManager\{Attributes\Entity, Attributes\Id, Interfaces\HasSoftDeletes};',
+                    'use Medas\EntityManager\{Attributes\Entity, Attributes\Id, Interfaces\HasSoftDeletes, Traits\SoftDeletes};',
                     'implements HasId, HasSoftDeletes',
                     "use Timestamps;\n    use SoftDeletes;",
                 ],
