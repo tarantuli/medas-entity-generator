@@ -22,7 +22,7 @@ use Medas\Core\Collections\ReferenceCollection;
 /**
  * @extends ReferenceCollection<{{shortClassName}}>
  */
-class {{shortClassName}}Collection extends ReferenceCollection
+class {{shortClassName}}BackReferences extends ReferenceCollection
 {
 }
 

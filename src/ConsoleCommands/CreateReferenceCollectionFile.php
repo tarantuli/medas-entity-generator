@@ -51,7 +51,7 @@ readonly class CreateReferenceCollectionFile extends BaseConsoleCommand
     {
         $className = $input->getArgument('className');
         $code = $this->referenceCollectionClassGenerator->generate($className);
-        $fileName = $this->fileNameFinder->find($className . 'Collection');
+        $fileName = $this->fileNameFinder->find($className . 'BackReferences');
 
         $this->fileWriter->writeToFile($code, $fileName);
     }
