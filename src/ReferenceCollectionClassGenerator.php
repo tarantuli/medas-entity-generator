@@ -7,7 +7,7 @@ namespace Medas\EntityGenerator;
 use Medas\Core\Attributes\Service;
 
 #[Service]
-readonly class CollectionClassGenerator
+readonly class ReferenceCollectionClassGenerator
 {
     private const string PHP_TEMPLATE
         = <<<'PHP'
@@ -17,16 +17,14 @@ declare(strict_types=1);
 
 namespace {{namespace}};
 
-use Medas\EntityManager\Attributes\EntityCollection;
-use Medas\StorageManager\Entities\RecordCollection;
+use Medas\Core\Collections\ReferenceCollection;
 
 /**
- * @extends RecordCollection<{{shortClassName}}>
+ * @extends ReferenceCollection<{{shortClassName}}>
  */
-#[EntityCollection({{shortClassName}}::class)]
-class {{shortClassName}}Collection extends RecordCollection
+class {{shortClassName}}Collection extends ReferenceCollection
 {
-}   
+}
 
 PHP;
 
