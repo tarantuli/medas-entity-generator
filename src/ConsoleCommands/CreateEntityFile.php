@@ -11,8 +11,14 @@ use Medas\Console\Commands\{
     ConsoleCommandGroup,
     Option
 };
-use Medas\Core\Attributes\Service;
-use Medas\EntityGenerator\{EntityClassGenerator, FileNameFinder, FileWriter};
+use Medas\Core\Attributes\{ConfigValue, Service};
+use Medas\EntityGenerator\{
+    ConfigOptions\UseAutoIds,
+    ConfigOptions\UseSoftDeletes,
+    EntityClassGenerator,
+    FileNameFinder,
+    FileWriter
+};
 
 #[Service]
 readonly class CreateEntityFile extends BaseConsoleCommand
@@ -22,6 +28,12 @@ readonly class CreateEntityFile extends BaseConsoleCommand
         private EntityGeneratorCommands $group,
         private FileNameFinder          $fileNameFinder,
         private FileWriter              $fileWriter,
+
+        #[ConfigValue(UseAutoIds::class)]
+        private bool                    $useAutoIdsByDefault,
+
+        #[ConfigValue(UseSoftDeletes::class)]
+        private bool                    $useSoftDeletesByDefault,
     )
     {
     }
@@ -49,8 +61,16 @@ readonly class CreateEntityFile extends BaseConsoleCommand
     public function options(): array
     {
         return [
-            new Option('auto-id'),
-            new Option('soft-deletes', 's'),
+            new Option(
+                'auto-id',
+                'a',
+                description: 'Automatically generate integer ids instead of using uuids'
+            ),
+            new Option(
+                'soft-deletes',
+                's',
+                description: 'Mark deletions as a property on the entity instead of removing them'
+            ),
         ];
     }
 
@@ -67,8 +87,8 @@ readonly class CreateEntityFile extends BaseConsoleCommand
 
         $code = $this->entityClassGenerator->generate(
             $className,
-            !$input->hasOption('auto-id'),
-            $input->hasOption('soft-deletes')
+            !$this->useAutoIdsByDefault && !$input->hasOption('auto-id'),
+            $this->useSoftDeletesByDefault || $input->hasOption('soft-deletes')
         );
 
         $fileName = $this->fileNameFinder->find($className);
